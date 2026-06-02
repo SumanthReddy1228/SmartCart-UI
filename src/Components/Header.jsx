@@ -14,7 +14,7 @@ const Header = () => {
       <header className="header">
         <div className="container">
           <a href="/">
-            <FontAwesomeIcon icon={faStore} className="fa-icon" />
+            <FontAwesomeIcon icon={faTags} className="fa-icon" />
             <span>SmartCart</span>
           </a>
           <nav className="nav">
