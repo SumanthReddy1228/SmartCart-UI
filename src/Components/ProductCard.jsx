@@ -1,6 +1,9 @@
 import React from "react";
 import Price from "./Price";
 export default function ProductCard({ product }) {
+  console.log(
+    `Start \n Price ${product?.price} , URL: ${product?.imageUrl}, Name: ${product?.name} \n end`,
+  );
   return (
     <div className="w-72 rounded-md mx-auto border border-gray-300 shadow-md overflow-hidden flex flex-col bg-white hover:shadow-lg transition">
       <div className="relative w-full h-72 border-b border-gray-300">
