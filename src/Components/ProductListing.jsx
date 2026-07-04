@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import ProductCard from "./ProductCard";
 import Dropdown from "./Dropdown";
 import SearchBox from "./SearchBox";
@@ -17,32 +17,29 @@ export default function ProductListing({ products }) {
     setSearchText(inputSearch);
   }
 
-  let filteredAndSortedProducts = Array.isArray(products)
-    ? products.filter(
-        (product) =>
-          product.name.toLowerCase().includes(searchText.toLowerCase()) ||
-          product.description.toLowerCase().includes(searchText.toLowerCase()),
-      )
-    : [];
+  const filteredAndSortedProducts = useMemo(() => {
+    if (!Array.isArray(products)) {
+      return [];
+    }
 
-  switch (selectedSort) {
-    case "Price Low to High":
-      filteredAndSortedProducts = filteredAndSortedProducts.sort(
-        (a, b) => parseFloat(a.price) - parseFloat(b.price),
-      );
-      break;
-    case "Price High to Low":
-      filteredAndSortedProducts = filteredAndSortedProducts.sort(
-        (a, b) => parseFloat(b.price) - parseFloat(a.price),
-      );
-      break;
-    case "Popularity":
-    default:
-      filteredAndSortedProducts = filteredAndSortedProducts.sort(
-        (a, b) => parseInt(b.popularity) - parseInt(a.popularity),
-      );
-      break;
-  }
+    let filteredProducts = products.filter(
+      (product) =>
+        product.name.toLowerCase().includes(searchText.toLowerCase()) ||
+        product.description.toLowerCase().includes(searchText.toLowerCase()),
+    );
+
+    return filteredProducts.slice().sort((a, b) => {
+      switch (selectedSort) {
+        case "Price Low to High":
+          return parseFloat(a.price) - parseFloat(b.price);
+        case "Price High to Low":
+          return parseFloat(b.price) - parseFloat(a.price);
+        case "Popularity":
+        default:
+          return parseInt(b.popularity) - parseInt(a.popularity);
+      }
+    });
+  }, [products, searchText, selectedSort]);
 
   return (
     <div className="max-w-6xl mx-auto">
