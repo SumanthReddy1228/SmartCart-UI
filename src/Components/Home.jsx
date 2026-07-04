@@ -3,6 +3,8 @@ import ProductListing from "./ProductListing";
 // import products from "../data/products";
 import apiClient from "../api/apiClient";
 import { useEffect, useState } from "react";
+import SearchBox from "./SearchBox";
+import Dropdown from "./Dropdown";
 export default function Home() {
   const [products, setProducts] = useState([]);
   const [error, setError] = useState(null);
