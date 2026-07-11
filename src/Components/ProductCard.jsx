@@ -1,9 +1,8 @@
-import React from "react";
 import Price from "./Price";
 export default function ProductCard({ product }) {
   return (
-    <div className="w-72 rounded-md mx-auto border border-gray-300 shadow-md overflow-hidden flex flex-col bg-white hover:shadow-lg transition">
-      <div className="relative w-full h-72 border-b border-gray-300">
+    <div className="mx-auto flex w-72 flex-col overflow-hidden rounded-md border border-gray-300 bg-white shadow-md transition duration-300 hover:-translate-y-1 hover:shadow-lg dark:border-darkline dark:bg-darkcard dark:shadow-none dark:hover:border-light/40">
+      <div className="relative h-72 w-full border-b border-gray-300 bg-lighter dark:border-darkline dark:bg-darkbd">
         <img
           src={product.imageUrl}
           alt={product.name}
@@ -11,12 +10,14 @@ export default function ProductCard({ product }) {
         />
       </div>
       <div className="relative h-48 p-4 flex flex-col font-primary">
-        <h2 className="text-xl font-semibold text-primary mb-2">
+        <h2 className="mb-2 text-xl font-semibold text-primary dark:text-lighter">
           {product.name}
         </h2>
-        <p className="text-base text-gray-600 mb-4">{product.description}</p>
+        <p className="mb-4 text-base text-gray-600 dark:text-darkmuted">
+          {product.description}
+        </p>
         <div className="flex items-center justify-between mt-auto">
-          <div className="bg-lighter text-primary font-medium text-sm py-2 px-4 rounded-tl-md">
+          <div className="rounded-tl-md bg-lighter px-4 py-2 text-sm font-medium text-primary ring-1 ring-primary/10 dark:bg-primary/20 dark:text-light dark:ring-light/10">
             <Price currency="$" price={product.price} />
           </div>
         </div>

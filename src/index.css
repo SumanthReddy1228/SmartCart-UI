@@ -2,6 +2,7 @@
 
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
     --font-primary: "Josefin Sans";
@@ -9,4 +10,41 @@
     --color-dark: #4C1D95;
     --color-lighter: #F5F3FF;
     --color-light: #DDD6FE;
+    --color-normalbg:#f3f4f6;
+    --color-darkbg:#101828;
+    --color-darkbd:#1e293b;
+    --color-darkcard:#182234;
+    --color-darkline:#334155;
+    --color-darkmuted:#cbd5e1;
+    --color-darktext:#f8fafc;
+}
+
+@layer base {
+    :root {
+        color-scheme: light;
+    }
+
+    .dark {
+        color-scheme: dark;
+    }
+
+    html,
+    body,
+    #root {
+        min-height: 100%;
+    }
+
+    body {
+        transition: background-color 250ms ease, color 250ms ease;
+    }
+
+    ::selection {
+        background-color: #ddd6fe;
+        color: #4c1d95;
+    }
+
+    .dark ::selection {
+        background-color: #6d28d9;
+        color: #f8fafc;
+    }
 }

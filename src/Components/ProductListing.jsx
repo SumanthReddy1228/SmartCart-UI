@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import { useState, useMemo } from "react";
 import ProductCard from "./ProductCard";
 import Dropdown from "./Dropdown";
 import SearchBox from "./SearchBox";
@@ -42,7 +42,7 @@ export default function ProductListing({ products }) {
   }, [products, searchText, selectedSort]);
 
   return (
-    <div className="max-w-6xl mx-auto">
+    <div className="mx-auto max-w-6xl">
       <div className="flex flex-col sm:flex-row justify-between items-center gap-4 pt-12">
         <SearchBox
           label="Search"
@@ -63,7 +63,7 @@ export default function ProductListing({ products }) {
             <ProductCard key={product.id} product={product} />
           ))
         ) : (
-          <p className="text-center font-primary font-bold text-lg text-primary">
+          <p className="col-span-full text-center font-primary text-lg font-bold text-primary dark:text-light">
             No Products found
           </p>
         )}

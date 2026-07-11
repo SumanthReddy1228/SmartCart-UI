@@ -1,6 +1,4 @@
-import React from "react";
-
-export default function ({ currency, price }) {
+export default function Price({ currency, price }) {
   return (
     <>
       {currency}
