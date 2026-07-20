@@ -14,9 +14,11 @@ import Login from "./Components/Login.jsx";
 import Cart from "./Components/Cart.jsx";
 import Home from "./Components/Home.jsx";
 import ErrorPage from "./Components/ErrorPage.jsx";
+import { productsLoader } from "./Components/Home.jsx";
 const routeDefinitions = createRoutesFromElements(
   <Route path="/" element={<App />} errorElement={<ErrorPage />}>
-    <Route path="/home" index element={<Home />} />
+    <Route index element={<Home />} loader={productsLoader} />
+    <Route path="/home" element={<Home />} loader={productsLoader} />
     <Route path="/contact" element={<Contact />} />
     <Route path="/login" element={<Login />} />
     <Route path="/cart" element={<Cart />} />

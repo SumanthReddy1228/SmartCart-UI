@@ -3,47 +3,10 @@ import ProductListing from "./ProductListing";
 // import products from "../data/products";
 import apiClient from "../api/apiClient";
 import { useEffect, useState } from "react";
+import { useLoaderData } from "react-router-dom";
 
 export default function Home() {
-  const [products, setProducts] = useState([]);
-  const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        setError(null);
-        setLoading(true);
-        const response = await apiClient.get("/products");
-        setProducts(response.data);
-      } catch (error) {
-        setError(
-          error.response?.data?.message ||
-            "Failed to Fetch Products. Retry Big Guy",
-        );
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchProducts();
-  }, []);
-
-  if (loading) {
-    return (
-      <div className="flex min-h-screen items-center justify-center bg-normalbg text-gray-700 dark:bg-darkbg dark:text-darkmuted">
-        <span className="text-xl font-semibold">Loading products...</span>
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="flex min-h-screen items-center justify-center bg-normalbg dark:bg-darkbg">
-        <span className="text-xl text-red-500">Error: {error}</span>
-      </div>
-    );
-  }
+  const products = useLoaderData();
 
   return (
     <main className="mx-auto max-w-6xl px-6 py-8">
@@ -54,4 +17,16 @@ export default function Home() {
       <ProductListing products={products} />
     </main>
   );
+}
+
+export async function productsLoader() {
+  try {
+    const response = await apiClient.get("/products"); // Axios GET Request
+    return response.data;
+  } catch (error) {
+    throw new Response(
+      error.message || "Failed to fetch products. Please try again.",
+      { status: error.status || 500 },
+    );
+  }
 }
