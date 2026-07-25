@@ -15,11 +15,15 @@ import Cart from "./Components/Cart.jsx";
 import Home from "./Components/Home.jsx";
 import ErrorPage from "./Components/ErrorPage.jsx";
 import { productsLoader } from "./Components/Home.jsx";
+import { contactAction } from "./Components/Contact.jsx";
+import { toast, ToastContainer, Bounce } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 const routeDefinitions = createRoutesFromElements(
   <Route path="/" element={<App />} errorElement={<ErrorPage />}>
     <Route index element={<Home />} loader={productsLoader} />
     <Route path="/home" element={<Home />} loader={productsLoader} />
-    <Route path="/contact" element={<Contact />} />
+    <Route path="/contact" element={<Contact />} action={contactAction} />
     <Route path="/login" element={<Login />} />
     <Route path="/cart" element={<Cart />} />
     <Route path="/about" element={<About />} />
@@ -61,5 +65,15 @@ const appRouter = createBrowserRouter(routeDefinitions);
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <RouterProvider router={appRouter} />
+    <ToastContainer
+      position="top-center"
+      autoClose={3000}
+      hideProgressBar={false}
+      newestOnTop={false}
+      draggable
+      pauseOnHover
+      theme={localStorage.getItem("theme") === "dark" ? "dark" : "light"}
+      transition={Bounce}
+    />
   </StrictMode>,
 );
