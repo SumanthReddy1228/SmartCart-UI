@@ -70,7 +70,7 @@ export const AuthProvider = ({ children }) => {
     dispatch({ type: LOGIN_SUCCESS, payload: { jwtToken, user } });
   };
 
-  const logOut = () => {
+  const logout = () => {
     dispatch({ type: LOGOUT });
   };
 
@@ -81,7 +81,7 @@ export const AuthProvider = ({ children }) => {
         user: authState.user,
         isAuthenticated: authState.isAuthenticated,
         loginSuccess,
-        logOut,
+        logout,
       }}
     >
       {children}
