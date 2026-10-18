@@ -23,7 +23,10 @@ import { CartContext, CartProvider } from "./store/cart-context.jsx";
 import { AuthProvider } from "./store/auth-context.jsx";
 import ProtectedRoute from "./Components/ProtectedRoute.jsx";
 import CheckOutForm from "./Components/CheckOutForm.jsx";
-import Profile from "./Components/Profile.jsx";
+import Profile, {
+  profileAction,
+  profileLoader,
+} from "./Components/Profile.jsx";
 import Orders from "./Components/Orders.jsx";
 import AdminOrders from "./Components/admin/AdminOrders.jsx";
 import Messages from "./Components/admin/Messages.jsx";
@@ -41,7 +44,13 @@ const routeDefinitions = createRoutesFromElements(
     <Route path="/products/:productId" element={<ProductDetail />} />
     <Route element={<ProtectedRoute />}>
       <Route path="/checkout" element={<CheckOutForm />} />
-      <Route path="/profile" element={<Profile />} />
+      <Route
+        path="/profile"
+        element={<Profile />}
+        loader={profileLoader}
+        action={profileAction}
+        shouldRevalidate={({ actionResult }) => !actionResult?.success}
+      />
       <Route path="/orders" element={<Orders />} />
       <Route path="/admin/orders" element={<AdminOrders />} />
       <Route path="/admin/messages" element={<Messages />} />
