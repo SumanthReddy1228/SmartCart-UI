@@ -12,7 +12,7 @@ export default function Cart() {
   const isCartEmpty = useMemo(() => cart.length === 0, [cart.length]);
 
   return (
-    <div className="min-h-[852px] py-12 bg-normalbg dark:bg-darkbg font-primary">
+    <div className="min-h-213 py-12 bg-normalbg dark:bg-darkbg font-primary">
       <div className="max-w-4xl mx-auto px-4">
         <PageTitle title="Your Cart" />
         {!isCartEmpty ? (
@@ -37,13 +37,13 @@ export default function Cart() {
           </>
         ) : (
           <div className="text-center text-gray-600 dark:text-lighter flex flex-col items-center">
-            <p className="max-w-[576px] px-2 mx-auto text-base mb-4">
+            <p className="max-w-xl px-2 mx-auto text-base mb-4">
               Oops... Your cart is empty. Continue shopping
             </p>
             <img
               src={emptyCartImage}
               alt="Empty Cart"
-              className="max-w-[300px] mx-auto mb-6 dark:bg-light dark:rounded-md"
+              className="max-w-75 mx-auto mb-6 dark:bg-light dark:rounded-md"
             />
             <Link
               to="/home"

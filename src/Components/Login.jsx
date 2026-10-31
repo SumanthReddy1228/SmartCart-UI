@@ -1,13 +1,13 @@
 import React, { useEffect } from "react";
 import PageTitle from "./PageTitle";
-import apiClient from "../api/apiClient";
 import {
   Link,
   Form,
   useActionData,
-  useNavigate,
   useNavigation,
+  useNavigate,
 } from "react-router-dom";
+import apiClient from "../api/apiClient";
 import { toast } from "react-toastify";
 import { useAuth } from "../store/auth-context";
 
@@ -17,14 +17,14 @@ export default function Login() {
   const isSubmitting = navigation.state === "submitting";
   const navigate = useNavigate();
   const { loginSuccess } = useAuth();
-  const redirectPath = sessionStorage.getItem("redirectPath") || "/home";
+  const from = sessionStorage.getItem("redirectPath") || "/home";
 
   useEffect(() => {
     if (actionData?.success) {
       loginSuccess(actionData.jwtToken, actionData.user);
       sessionStorage.removeItem("redirectPath");
       setTimeout(() => {
-        navigate(redirectPath);
+        navigate(from);
       }, 100);
     } else if (actionData?.errors) {
       toast.error(actionData.errors.message || "Login failed.");
@@ -52,6 +52,7 @@ export default function Login() {
               type="text"
               name="username"
               placeholder="Your Username"
+              autoComplete="username"
               required
               className={textFieldStyle}
             />
@@ -67,8 +68,9 @@ export default function Login() {
               type="password"
               name="password"
               placeholder="Your Password"
+              autoComplete="current-password"
               required
-              minLength={3}
+              minLength={4}
               maxLength={20}
               className={textFieldStyle}
             />
@@ -124,7 +126,7 @@ export async function loginAction({ request }) {
       error.response?.data?.message ||
         error.message ||
         "Failed to login. Please try again.",
-      { status: error.response?.status || 500 },
+      { status: error.response?.status || 500 }
     );
   }
 }
